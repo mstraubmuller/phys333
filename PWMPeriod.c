@@ -7,9 +7,9 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  test_PWM(250, 1000, 10, pin_number); //full power, quarter of a second
+  test_PWM(750, 500, 10, pin_number);
   delay(1000);
-  test_PWM(500, 500, 10, pin_number); //half power, half a second
+  test_PWM(250, 100, 10, pin_number);
   delay(1000);
 }
 
@@ -17,9 +17,9 @@ void test_PWM(int dur, int pwr, int prd, int pin) {
   int elapsed = 0;
   do {
     digitalWrite(pin, HIGH);
-    delayMicroseconds(pwr*prd); //pwr*prd = how many microseconds light is on
+    delayMicroseconds(pwr*prd);
     digitalWrite(pin, LOW);
-    delayMicroseconds((1000-pwr)*prd); //how many microseconds the light is off
-    elapsed = elapsed + 1000*prd;
-  }while(elapsed < dur); //expected duration is under 1000; not currently sanitized
+    delayMicroseconds((1000-pwr)*prd);
+    elapsed = elapsed + prd;
+  }while(elapsed < dur);
 }
